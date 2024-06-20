@@ -15,4 +15,4 @@ express (^4.19.2)<br>
 jsonwebtoken (^9.0.2)<br>
 mongoose (^8.4.1)<br>
 mongoose-aggregate-paginate-v2 (^1.0.7)<br>
-"multer": "^1.4.5-lts.1"<br>
+multer (^1.4.5-lts.1)<br>
