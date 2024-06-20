@@ -1,4 +1,6 @@
 import mongoose, { Schema } from "mongoose";
+import jsonwebtoken from "jsonwebtoken";
+import bcrypt from "bcrypt"
 
 const UserSchema = new mongoose.Schema(
     {
@@ -53,6 +55,18 @@ const UserSchema = new mongoose.Schema(
 
     }, {timestamps:true}
 )
+
+UserSchema.pre("save", function(next){
+    if( !this.isModified("password") ){
+        return next()
+    }
+    
+    else{
+        this.password = bcrypt.hash(this.password, 10)
+        next()
+    }
+
+})
 
 export const User = mongoose.model("User", UserSchema)
 
