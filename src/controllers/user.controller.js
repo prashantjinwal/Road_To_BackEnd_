@@ -130,7 +130,30 @@ const loginUser = asynchandler(async (req, res) => {
     }
 
     // ---- access and refresh token ----
+
+    const {refreshToken, accessToken} =  await generateAccessAndRefreshToken(user._id)
+
+       // Optional step 
+        const loggedInUser = await User.findById(user._id).select("-password -refreshToken") 
+
     // ---- send cookies ----
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res.status(200).cookie("accessToken", accessToken, options).cookie("refreshToken", refreshToken, options).json(
+
+        new ApiResponse(
+            200,
+            {
+                user: loggedInUser, accessToken, refreshToken
+            },
+            "User Logged In successfully"
+        )
+    )
+
 })
 
 
