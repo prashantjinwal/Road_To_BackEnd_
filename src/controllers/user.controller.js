@@ -82,4 +82,25 @@ const resgisterUser = asynchandler( async (req, res) => {
 })
 
 
+const loginUser = asynchandler(async (req, res) => {
+    // req body -> data
+    const {email, username, password} = req.body
+
+    if(!username || !email ){
+        throw new ApiError(400, "username or password is required")
+    }
+
+    // username or email
+
+    await User.findOne({
+        $or: [{email}, {username}]
+    })
+
+    // find the user 
+    // password check 
+    // access and refresh token 
+    // send cookies
+})
+
+
 export {resgisterUser}
